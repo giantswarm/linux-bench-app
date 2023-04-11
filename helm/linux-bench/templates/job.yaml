@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-node"
+  namespace: {{ tpl .Values.namespace  . }}
+  labels:
+    app: {{ tpl .Values.name  . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+    "helm.sh/hook-weight": "5"
+spec:
+  ttlSecondsAfterFinished: 300
+  template:
+    metadata:
+      name: {{ .Release.Name }}
+      labels:
+        app: {{ tpl .Values.name  . }}
+        release: "{{ .Release.Name }}"
+    spec:
+      hostPID: true
+      serviceAccountName: {{ .Values.name }}
+      restartPolicy: Never
+      containers:
+      - name: linux-bench
+        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          #command: ["kube-bench", "node", "--json", "true", "--include-test-output", "true"]
+        volumeMounts:
+          - name: host
+            mountPath: /host
+            readOnly: true
+      volumes:
+        - name: host
+          hostPath:
+            path: "/"

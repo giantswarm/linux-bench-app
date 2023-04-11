@@ -1,0 +1,8 @@
+apiVersion: v2
+appVersion: 0.0.1
+name: linux-bench
+description: A helm chart for Aqua Security linux-bench tool, which provides CIS benchmarks for linux servers.
+home: https://github.com/giantswarm/linux-bench-app
+version: [[ .Version ]] 
+annotations:
+  application.giantswarm.io/team: "shield"

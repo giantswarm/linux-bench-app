@@ -1,0 +1,44 @@
+name: linux-bench
+serviceType: managed
+
+project:
+  branch: "[[ .Branch ]]"
+  commit: "[[ .SHA ]]"
+
+image:
+  registry: docker.io
+  name: giantswarm/linux-bench
+  tag: v0.0.1
+  pullPolicy: IfNotPresent
+
+pod:
+  user:
+    id: 0
+  group:
+    id: 0
+
+podSecurityContext:
+  runAsNonRoot: false
+  privileged: true
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  allowPrivilegeEscalation: true
+  privileged: true
+  runAsNonRoot: false
+  seccompProfile:
+    type: RuntimeDefault
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 220Mi
+  limits:
+    cpu: 100m
+    memory: 220Mi
+
+psp:
+  enabled: true
+
+

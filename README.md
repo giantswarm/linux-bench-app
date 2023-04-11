@@ -2,10 +2,14 @@
 
 [Read me after cloning this template (GS staff only)](https://intranet.giantswarm.io/docs/dev-and-releng/app-developer-processes/adding_app_to_appcatalog/)
 
-# {APP-NAME} chart
+This app is heavily under construction, our first step is to get it working in clusters AS-IS.
+After which we will work on the application on an upstream branch to make it perform better and more reliably on the flatcar images we are using.
+When we've reached that stage, we will link the issue and branch here.
 
-Giant Swarm offers a {APP-NAME} App which can be installed in workload clusters.
-Here we define the {APP-NAME} chart with its templates and default configuration.
+# Linux-Bench
+
+Giant Swarm offers a linux-bench App which can be installed in workload clusters.
+Here we define the linux-bench chart with its templates and default configuration.
 
 **What is this app?**
 
@@ -67,4 +71,4 @@ Not following these limitations will most likely result in a broken deployment.
 
 ## Credit
 
-- {APP HELM REPOSITORY}
+- https://github.com/aquasecurity/linux-bench
