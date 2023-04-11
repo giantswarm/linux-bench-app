@@ -22,6 +22,9 @@ podSecurityContext:
   privileged: true
   seccompProfile:
     type: RuntimeDefault
+  runAsUser: 0
+  runAsGroup: 0
+  
 
 securityContext:
   allowPrivilegeEscalation: true
