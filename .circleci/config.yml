@@ -1,18 +1,27 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@4.8.1
+  architect: giantswarm/architect@4.27.0
 
 workflows:
   package-and-push-chart-on-tag:
     jobs:
-      - architect/push-to-app-catalog:
+      - architect/go-build:
+          name: go-build
+          binary: linux-bench
+          resource_class: large
+          filters:
+            tags:
+              only: /^v.*/
+
+      - architect/push-to-docker:
           context: "architect"
-          # executor: "app-build-suite" # uncomment this if you want automatic metadata generation and helm chart linting
-          name: "package and push {APP-NAME} chart"
-          app_catalog: "giantswarm-playground-catalog"
-          app_catalog_test: "giantswarm-playground-test-catalog"
-          chart: "{APP-NAME}"
-          # Trigger job on git tag.
+          name: push-linux-bench-to-docker
+          image: "docker.io/giantswarm/linux-bench"
+          username_envar: "DOCKER_USERNAME"
+          password_envar: "DOCKER_PASSWORD"
+          requires:
+            - go-build
+          # Needed to trigger job also on git tag.
           filters:
             tags:
               only: /^v.*/
