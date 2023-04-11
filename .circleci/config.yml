@@ -25,3 +25,19 @@ workflows:
           filters:
             tags:
               only: /^v.*/
+
+      - architect/push-to-app-catalog:
+          context: "architect"
+          executor: "app-build-suite"
+          name: push-linux-bench-to-giantswarm-catalog
+          app_catalog: "giantswarm-catalog"
+          app_catalog_test: "giantswarm-test-catalog"
+          chart: "linux-bench"
+          persist_chart_archive: true
+          requires:
+            - push-linux-bench-to-docker
+            # - push-starboard-exporter-to-quay
+          # Trigger job on git tag.
+          filters:
+            tags:
+              only: /^v.*/
