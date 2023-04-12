@@ -1,0 +1,7 @@
+#According to NVD this CVE should not be in the used api version of consul? : https://nvd.nist.gov/vuln/detail/CVE-2022-29153
+CVE-2022-29153
+
+#According to NVD this CVE should not be in the used version of gorm? : https://nvd.nist.gov/vuln/detail/CVE-2019-15562#range-6421950
+CVE-2019-15562
+
+
