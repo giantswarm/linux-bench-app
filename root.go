@@ -36,7 +36,6 @@ var (
 	jsonFmt           bool
 	includeTestOutput bool
 	outputFile        string
-        err		  error
 )
 
 // RootCmd represents the base command when called without any subcommands
@@ -56,14 +55,14 @@ func Execute() {
 		os.Exit(1)
 		return
 	}
-	err := goflag.CommandLine.Parse([]string{})
+	err = goflag.CommandLine.Parse([]string{})
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 		return
 	}
 
-	if err := RootCmd.Execute(); err != nil {
+	if err = RootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(-1)
 	}
