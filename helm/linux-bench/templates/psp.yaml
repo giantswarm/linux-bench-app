@@ -15,17 +15,7 @@ spec:
   supplementalGroups:
     rule: RunAsAny
   allowedHostPaths:
-    - pathPrefix: /var/lib/etcd
-      readOnly: true
-    - pathPrefix: /var/lib/kubelet
-      readOnly: true
-    - pathPrefix: /etc/systemd
-      readOnly: true
-    - pathPrefix: /etc
-      readOnly: true
-    - pathPrefix: /usr/bin
-      readOnly: true
-    - pathPrefix: /srv
+    - pathPrefix: /
       readOnly: true
   volumes:
     - 'hostPath'

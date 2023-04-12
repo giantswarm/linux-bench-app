@@ -49,8 +49,18 @@ var RootCmd = &cobra.Command{
 // Execute adds all child commands to the root command sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	goflag.Set("logtostderr", "true")
-	goflag.CommandLine.Parse([]string{})
+	err := goflag.Set("logtostderr", "true")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+		return
+	}
+	err := goflag.CommandLine.Parse([]string{})
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+		return
+	}
 
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
