@@ -1,28 +1,8 @@
-# Build the manager binary
-FROM golang:1.19.5 as builder
-
-WORKDIR /
-# Copy the Go Modules manifests
-COPY go.mod go.mod
-COPY go.sum go.sum
-# cache deps before building and copying source so that we don't need to re-download as much
-# and so that source changes don't invalidate our downloaded layer
-RUN go mod download
-
-# Copy the go source
-COPY main.go main.go
-COPY utils.go utils.go
-COPY root.go root.go
-COPY app.go app.go
-COPY /cfg /cfg
-
-# Build
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o manager main.go
-
 # Use distroless as minimal base image to package the manager binary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
 FROM gcr.io/distroless/static-debian11:latest
-COPY --from=builder /workspace/manager .
+WORKDIR /
+RUN wget https://github.com/aquasecurity/linux-bench/releases/download/v0.5.0/linux-bench_0.5.0_linux_amd64.tar.gz && tar -zxf linux-bench_0.5.0_linux_amd64.tar.gz
 USER 0:0
 
-ENTRYPOINT ["/manager"]
+ENTRYPOINT ["/"]
