@@ -21,7 +21,7 @@ spec:
       restartPolicy: Never
       securityContext:
         {{- with .Values.podSecurityContext }}
-          {{- . | toYaml | nindent 8 }}
+          {{- . | toYaml | nindent 6 }}
         {{- end}}
       containers:
       - name: linux-bench
@@ -30,7 +30,7 @@ spec:
           args:  ["cp /linux-bench /host && cp -r /cfg /host && chroot /host && ./linux-bench --json --include-test-output --logtostderr && rm -r /cfg && rm /linux-bench && exit"]
         securityContext:
           {{- with .Values.securityContext }}
-            {{- . | toYaml | nindent 10 }}
+            {{- . | toYaml | nindent 8 }}
           {{- end }}
         volumeMounts:
           - name: host
