@@ -18,7 +18,7 @@ spec:
     rule: RunAsAny
   allowedHostPaths:
     - pathPrefix: /
-      readOnly: true
+      readOnly: false
   volumes:
     - 'hostPath'
     - 'secret'
