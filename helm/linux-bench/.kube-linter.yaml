@@ -1,0 +1,10 @@
+checks:
+  exclude:
+  - "host-pid" #tool needs acces to processes on host.
+  - "no-read-only-root-fs" #tool needs access to the fs of the host, will test if this can be limited later.
+  - "privilege-escalation-container" #Tool needs to run as root in underlying host.
+  - "privileged-container" #see above.
+  - "run-as-non-root" #see above.
+  - "sensitive-host-mounts" #container needs to mount whole host, chroot into it, and run tool (very dirty, we're aware).
+  - "unset-cpu-requirements"
+  - "unset-memory-requirements"
