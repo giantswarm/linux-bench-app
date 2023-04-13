@@ -25,7 +25,7 @@ spec:
         {{- end}}
       containers:
       - name: linux-bench
-        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Chart.Version }}"
         command: ["/bin/sh", "-c"]
         args:  ["cp /linux-bench /host && cp -r /cfg /host && chroot /host && ./linux-bench --json --include-test-output --logtostderr && rm -r /cfg && rm /linux-bench && exit"]
         securityContext:
