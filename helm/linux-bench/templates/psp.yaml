@@ -3,6 +3,8 @@ kind: PodSecurityPolicy
 metadata:
   name: {{ .Values.name }}
   namespace: {{ tpl .Values.namespace  . }}
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'runtime/default'
 spec:
   fsGroup:
     rule: RunAsAny
@@ -22,3 +24,6 @@ spec:
     - 'secret'
     - 'configMap'
   hostPID: true
+  hostIPC: true
+  privileged: true
+  allowPrivilegeEscalation: true
