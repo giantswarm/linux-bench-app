@@ -1,16 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "{{ .Release.Name }}
+  name: "{{ .Release.Name }}"
   namespace: {{ tpl .Values.namespace  . }}
   labels:
     app: {{ tpl .Values.name  . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
-  annotations:
-    "helm.sh/hook": post-install
-    "helm.sh/hook-delete-policy": "before-hook-creation"
-    "helm.sh/hook-weight": "5"
 spec:
   ttlSecondsAfterFinished: 300
   template:
@@ -30,7 +26,8 @@ spec:
       containers:
       - name: linux-bench
         image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
-          #command: ["kube-bench", "node", "--json", "true", "--include-test-output", "true"]
+          command: ["/bin/sh", "-c"]
+          args:  ["cp /linux-bench /host && cp -r /cfg /host && chroot /host && ./linux-bench --json --include-test-output --logtostderr && rm -r /cfg && rm /linux-bench && exit"]
         securityContext:
           {{- with .Values.securityContext }}
             {{- . | toYaml | nindent 10 }}
