@@ -21,16 +21,16 @@ spec:
       restartPolicy: Never
       securityContext:
         {{- with .Values.podSecurityContext }}
-          {{- . | toYaml | nindent 6 }}
+          {{- . | toYaml | nindent 8 }}
         {{- end}}
       containers:
       - name: linux-bench
         image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
-          command: ["/bin/sh", "-c"]
-          args:  ["cp /linux-bench /host && cp -r /cfg /host && chroot /host && ./linux-bench --json --include-test-output --logtostderr && rm -r /cfg && rm /linux-bench && exit"]
+        command: ["/bin/sh", "-c"]
+        args:  ["cp /linux-bench /host && cp -r /cfg /host && chroot /host && ./linux-bench --json --include-test-output --logtostderr && rm -r /cfg && rm /linux-bench && exit"]
         securityContext:
           {{- with .Values.securityContext }}
-            {{- . | toYaml | nindent 8 }}
+            {{- . | toYaml | nindent 12 }}
           {{- end }}
         volumeMounts:
           - name: host
